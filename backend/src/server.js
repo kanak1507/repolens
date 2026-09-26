@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 
+const repositoryRoutes = require("./routes/repositoryRoutes");
+
 const app = express();
 
 app.use(cors());
@@ -12,6 +14,8 @@ app.get("/api/health", (req, res) => {
     message: "RepoLens backend is running",
   });
 });
+
+app.use("/api/repository", repositoryRoutes);
 
 const PORT = 5000;
 

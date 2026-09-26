@@ -1,0 +1,13 @@
+{
+  "name": "demo-repo",
+  "version": "1.0.0",
+  "description": "Demo repository for RepoLens",
+  "main": "src/server.js",
+  "dependencies": {
+    "express": "^5.1.0",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "jest": "^30.0.0"
+  }
+}
