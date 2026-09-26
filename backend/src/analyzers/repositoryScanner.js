@@ -16,6 +16,14 @@ const languageMap = {
   ".md": "Markdown",
 };
 
+const ignoredDirectories = new Set([
+  "node_modules",
+  ".git",
+  "dist",
+  "build",
+  "coverage",
+]);
+
 function readPackageJson(repoPath) {
   const packagePath = path.join(repoPath, "package.json");
 
@@ -55,6 +63,10 @@ function scanRepository(repoPath) {
     const items = fs.readdirSync(currentPath);
 
     for (const item of items) {
+      if (ignoredDirectories.has(item)) {
+        continue;
+      }
+
       const fullPath = path.join(currentPath, item);
       const stats = fs.statSync(fullPath);
 
@@ -70,15 +82,18 @@ function scanRepository(repoPath) {
         const language = languageMap[extension];
 
         if (language) {
-          languages[language] = (languages[language] || 0) + 1;
+          languages[language] =
+            (languages[language] || 0) + 1;
         }
       }
     }
   }
 
   scanDirectory(repoPath);
+
   const packageInfo = readPackageJson(repoPath);
   const readme = readReadme(repoPath);
+
   return {
     projectName: path.basename(repoPath),
     fileCount: files.length,
@@ -91,4 +106,6 @@ function scanRepository(repoPath) {
   };
 }
 
-module.exports = { scanRepository };
+module.exports = {
+  scanRepository,
+};

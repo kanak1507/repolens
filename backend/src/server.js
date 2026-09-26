@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const repositoryRoutes = require("./routes/repositoryRoutes");
+const qnaRoutes = require("./routes/qnaRoutes");
 
 const app = express();
 
@@ -17,8 +18,12 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/repository", repositoryRoutes);
 
+app.use("/api/qna", qnaRoutes);
+
 const PORT = 5000;
 
 app.listen(PORT, () => {
-  console.log(`RepoLens backend running on http://localhost:${PORT}`);
+  console.log(
+    `RepoLens backend running on http://localhost:${PORT}`
+  );
 });
